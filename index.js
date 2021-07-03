@@ -28,6 +28,6 @@ app.use('/*', (req, res) => {
     res.status(404).json({ message: "invalid route" })
 })
 
-app.listen(process.env.port || PORT, () => {
+app.listen(process.env.PORT || PORT, () => {
     console.log("server started at port " + PORT)
 })
