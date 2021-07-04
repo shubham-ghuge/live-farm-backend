@@ -19,8 +19,8 @@ router.route('/')
         const { userId } = req.user;
         const { name, videoId } = req.body;
         try {
-            await Playlist.create({ name, videos: [videoId], userId })
-            res.json({ success: true, message: "playlist created" });
+            const response = await Playlist.create({ name, videos: [videoId], userId })
+            res.json({ success: true, message: "playlist created", id: response._id });
         } catch (error) {
             console.log("error while creating playlist", error);
             res.json({ success: false, message: "error while creating playlist", error });

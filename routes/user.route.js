@@ -5,6 +5,21 @@ const jwt = require('jsonwebtoken');
 const salt = bcrypt.genSaltSync(8);
 const { isValidLoginData, isValidRegisterData } = require('../middlewares/user.middleware');
 const User = require('../models/user.model');
+const { authHandler } = require('../middlewares/auth.middleware');
+
+router.route("/")
+    .get(authHandler, async (req, res) => {
+        const { userId } = req.user;
+        try {
+            const response = await User.findById(userId);
+            response.password = undefined;
+            response.__v = undefined;
+            res.status(200).json({ success: true, response, message: "data retrieved" });
+        } catch (error) {
+            console.log("error in retrieving user data", error);
+            res.json({ success: false, message: "something went wrong while retrieving user data" })
+        }
+    })
 
 router.route('/register')
     .post(isValidRegisterData, async (req, res) => {
