@@ -25,7 +25,6 @@ async function isValidLoginData(req, res, next) {
     if (email && password) {
         try {
             const checkUser = await User.findOne({ email });
-            console.log(checkUser);
             if (!checkUser) {
                 res.json({ message: "user doesn't exist" });
             } else {

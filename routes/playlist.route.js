@@ -8,8 +8,7 @@ router.route('/')
     .get(authHandler, async (req, res) => {
         const { userId } = req.user;
         try {
-            const userData = await Playlist.find({ userId });
-            const response = userData.map(({ name, _id, videos }) => ({ name, _id, length: videos.length }));
+            const response = await Playlist.find({ userId });
             res.json({ success: true, message: "playlist data", response });
         } catch (error) {
             console.log(error);
