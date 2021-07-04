@@ -7,10 +7,10 @@ router.route('/')
     .get(async (req, res) => {
         try {
             const response = await Video.find({}).lean();
-            res.json({ sucess: true, message: "here is the data", response });
+            res.json({ success: true, message: "here is the data", response });
         } catch (error) {
             console.log(error);
-            res.status(500).json({ sucess: false, message: "something went wrong" });
+            res.status(500).json({ success: false, message: "something went wrong" });
         }
     })
     .post(authHandler, async (req, res) => {

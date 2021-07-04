@@ -8,11 +8,13 @@ const User = require('../models/user.model');
 
 router.route('/register')
     .post(isValidRegisterData, async (req, res) => {
-        const { userDetails: { name, email, password } } = req.body;
+        const userDetails = req.body;
+        const { name, email, password } = userDetails;
         try {
             const hashedPassword = bcrypt.hashSync(password, salt);
-            await User.create({ name, email, password: hashedPassword });
-            res.status(201).json({ success: true, message: "registration successful" });
+            const response = await User.create({ name, email, password: hashedPassword });
+            const token = jwt.sign({ userId: response._id }, process.env['secret_key'], { expiresIn: '24h' });
+            res.status(201).json({ success: true, message: "registration successful", token });
         } catch (error) {
             console.log("error in registration", error);
             res.json({ success: false, message: "couldn't register you,please try again!" })

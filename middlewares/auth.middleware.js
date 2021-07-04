@@ -13,7 +13,7 @@ async function authHandler(req, res, next) {
         }
     } catch (error) {
         console.log(error);
-        res.status(401).json({ success: false, message: "unauthprized access" });
+        res.status(401).json({ success: false, message: "unauthorized access" });
     }
 }
 

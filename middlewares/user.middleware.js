@@ -1,7 +1,7 @@
 const User = require('../models/user.model');
 
 async function isValidRegisterData(req, res, next) {
-    const { userDetails } = req.body;
+    const userDetails = req.body;
     const { name, email, password } = userDetails || {};
     if (name && email && password) {
         try {
